@@ -58,7 +58,7 @@ def get_common(topic, subreddit, count, normalize = Counter()):
     counter -= normalize
     return counter
 
-#lemmatizes and filters the body of the comment
+#tokenizes and filters the body of the comment
 def filter_body(comment):
     body = comment.get("body", "")
     body = body.lower()

@@ -4,6 +4,9 @@ import csv
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer as SIA
 import re
 
+#base query url
+#maximum size is 1000, increasing will not change number of comments returned
+#score threshold set to greater than 1 to avoid problems with normalizing sentiment
 base_url = "https://api.pushshift.io/reddit/search/comment/" + \
             "?q={}&" + \
             "{}" + \
@@ -45,6 +48,7 @@ def get_normalized_sentiment(comments):
     normalized_sentiment = total_sent / (len(comments) or 1) / (total_score or 1)
     return normalized_sentiment
 
+#makes appropriate headers for given subreddits
 def make_header(subreddits):
     header = ["Date"]
     header += ["/r/{}".format(sub) for sub in subreddits]

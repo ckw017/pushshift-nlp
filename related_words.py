@@ -61,6 +61,8 @@ def get_common(topic, subreddit, count, normalize = Counter()):
 #lemmatizes and filters the body of the comment
 def filter_body(comment):
     body = comment.get("body", "")
+    body = body.lower()
+    body = re.sub(r'[^\w\s]','',body)
     body = nltk.word_tokenize(body)
     tagged = nltk.pos_tag(body)
 
@@ -74,7 +76,7 @@ def filter_body(comment):
 
 def counter_to_row(row_name, counter):
     common = counter.most_common(MATCH_COUNTS)
-    row = [subreddit or "all"]\
+    row = [subreddit or "all"]
     #Entry format: (keyword, count)
     row += [entry[0] + " ({})".format(entry[1]) for entry in common] #Converts each entry to format "key_word (count)"
     return row
